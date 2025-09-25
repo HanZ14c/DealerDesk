@@ -1,10 +1,24 @@
-# My Personal Project
+# Car Dealership Manager
 
-## A subtitle
+## What will the application do?
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+This app lets a car dealership keep track of its cars, customers, and brokers. User can add cars into the inventory,
+update status, and record sales when a car is bought. The system also stores customer info and links them to brokers, making it easier to match people with the right car.
 
-An example of text with **bold** and *italic* fonts.  
+## Who will use it?
+
+The main users are dealship staff who need to organize cars, match customers, and check sales records.
+
+## Why is this project of interest to you?
+
+I choose this project because it connects programming with a real business cases. It combines class design, data management, and desktop GUI, while making something that feels useful in real life.
+
+**User Stories**
+
+- As a user, I want to be able to add a car to the inventory with its model, color, and package
+- As a user, I want to be able to view and filter the inventory by status (upcoming, in stock, sold, promotion)
+- As a user, I want to be able to update a car’s status
+- As a user, I want to be able to record a sale by marking a car as sold and linking it to a buyer
+- As a user, I want to be able to manage customer profiles (name, contact, preferences)
+- As a user, I want to be able to log in as a broker and see my customers
+- As a user, I want to be able to list sold cars and group them by broker or region
