@@ -13,7 +13,7 @@ The main users are dealship staff who need to organize cars, match customers, an
 
 I choose this project because it connects programming with a real business cases. It combines class design, data management, and desktop GUI, while making something that feels useful in real life.
 
-##User Stories##
+## User Stories
 
 - As a user, I want to be able to add a car to the inventory with its model, color, and package
 - As a user, I want to be able to view and filter the inventory by status (upcoming, in stock, sold, promotion)
