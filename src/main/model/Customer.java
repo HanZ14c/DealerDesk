@@ -12,20 +12,22 @@ public class Customer {
      *          customer name is set to name; customer phone number is set to phoneNUmber.
      */
     public Customer(String name, int phoneNumber) {
-        // stub
+        this.customerID = nextCustomerID++;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
     }
 
     // Getters
 
     public int getCustomerID() {
-        return -1; // stub
+        return customerID;
     }
 
     public String getName() {
-        return null; // stub
+        return name;
     }
 
     public int getPhoneNumber() {
-        return -1; // stub
+        return phoneNumber;
     }
 }
