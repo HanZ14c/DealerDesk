@@ -23,13 +23,13 @@ public class Dealership {
         if (carList != null) {
             setCarList(carList);
         }
-        if(brokerList != null) {
+        if (brokerList != null) {
             setBrokerList(brokerList);
         }
-        if(customerList != null) {
+        if (customerList != null) {
             setCustomerList(customerList);
         }
-        if(saleList != null) {
+        if (saleList != null) {
             setSaleList(saleList);
         }
     }
