@@ -3,7 +3,7 @@
 ## What will the application do?
 
 This app lets a car dealership keep track of its cars, customers, and brokers. User can add cars into the inventory,
-update status, and record sales when a car is bought. The system also stores customer info and links them to brokers, making it easier to match people with the right car.
+update status, and record sales when a car is sold. The system also stores customer info and links them to brokers, making it easier to match people with the right car.
 
 ## Who will use it?
 
@@ -20,5 +20,10 @@ I choose this project because it connects programming with a real business cases
 - As a user, I want to be able to update a car’s status
 - As a user, I want to be able to record a sale by marking a car as sold and linking it to a buyer
 - As a user, I want to be able to manage customer profiles (name, contact, preferences)
-- As a user, I want to be able to log in as a broker and see my customers
-- As a user, I want to be able to list sold cars and group them by broker or region
+
+## Roadmap
+
+- Interface
+- Abstract class
+- Exception handling
+- More user stories...
