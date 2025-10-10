@@ -99,7 +99,7 @@ public class DealershipApp {
 
         Car car = new Car(model, year, color, null, price, 0);
         dealership.addCar(car);
-        System.out.println("New car added!");
+        System.out.println("New car added!\n");
     }
 
     // EFFECTS: print the carList
@@ -145,16 +145,16 @@ public class DealershipApp {
         Car car = dealership.getCarByCarID(id);
 
         System.out.println("Select new status for: " + car.getYear() + " " + car.getModel());
-        System.out.println("    0 - Car modification created\\n" + //
-                "   1 - Order placed\\n" + //
-                "   2 - In factory\\n" + //
-                "   3 - Upcoming\\n" + //
-                "   4 - In stock\\n" + //
-                "   5 - Sold");
+        System.out.println("    0 - Car modification created\n" + //
+                "    1 - Order placed\n" + //
+                "    2 - In factory\n" + //
+                "    3 - Upcoming\n" + //
+                "    4 - In stock\n" + //
+                "    5 - Sold");
         System.out.print("Select: ");
         int status = scan.nextInt();
         car.updateStatus(status);
-        System.out.println("Car status updated!");
+        System.out.println("Car status updated!\n");
     }
 
     // MODIFIES: dealership -> saleList
@@ -177,6 +177,6 @@ public class DealershipApp {
 
         dealership.addSale(new Sale(carID, brokerID, customerID, price));
         ;
-        System.out.println("A new sale!");
+        System.out.println("A new sale created!\n");
     }
 }
