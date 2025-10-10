@@ -86,7 +86,7 @@ public class DealershipApp {
     // EFFECTS: add a brand new car order
     private void addCar() {
         scan.nextLine();
-        System.out.print("Model: ");
+        System.out.print("\n--- ADD NEW CAR ---\nModel: ");
         String model = scan.nextLine();
         System.out.print("Year: ");
         int year = scan.nextInt();
@@ -102,11 +102,12 @@ public class DealershipApp {
         System.out.println("New car added!\n");
     }
 
+    @SuppressWarnings("methodlength")
     // EFFECTS: print the carList
     private void viewInventory() {
         ArrayList<Car> inventory = dealership.getCarList();
         if (inventory.size() != 0) {
-            System.out.println("\n=== INVENTORY ===\nID | YEAR | MODEL");
+            System.out.println("\n--- INVENTORY ---\nID | YEAR | MODEL");
             for (Car car : inventory) {
                 System.out.print(car.getCarID() + "  | " + car.getYear() + " | " + car.getModel() + " | ");
                 int status = car.getStatus();
@@ -140,17 +141,17 @@ public class DealershipApp {
     // EFFECTS: update the car status
     private void updateCarStatus() {
         scan.nextLine();
-        System.out.print("\n=== UPDATE CAR STATUS ===\nSelect a car #: ");
+        System.out.print("\n--- UPDATE CAR STATUS ---\nSelect a car #: ");
         int id = scan.nextInt();
         Car car = dealership.getCarByCarID(id);
 
         System.out.println("Select new status for: " + car.getYear() + " " + car.getModel());
-        System.out.println("    0 - Car modification created\n" + //
-                "    1 - Order placed\n" + //
-                "    2 - In factory\n" + //
-                "    3 - Upcoming\n" + //
-                "    4 - In stock\n" + //
-                "    5 - Sold");
+        System.out.println("    0 - Car modification created");
+        System.out.println("    1 - Order placed");
+        System.out.println("    2 - In factory");
+        System.out.println("    3 - Upcoming");
+        System.out.println("    4 - In stock");
+        System.out.println("    5 - Sold");
         System.out.print("Select: ");
         int status = scan.nextInt();
         car.updateStatus(status);
@@ -161,8 +162,7 @@ public class DealershipApp {
     // EFFECTS: add a sale record
     private void recordSale() {
         scan.nextLine();
-        System.out.print("\n=== RECORD A NEW SALE ===\n" + //
-                "Select a car #: ");
+        System.out.print("\n--- RECORD A NEW SALE ---\nSelect a car #: ");
         int carID = scan.nextInt();
         scan.nextLine();
         System.out.print("Select a broker #: ");
