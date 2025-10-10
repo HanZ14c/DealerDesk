@@ -15,7 +15,23 @@ public class Dealership {
      */
     public Dealership(ArrayList<Car> carList, ArrayList<Broker> brokerList, 
                       ArrayList<Customer> customerList, ArrayList<Sale> saleList) {
-        // stub
+        this.carList = new ArrayList<>();
+        this.brokerList = new ArrayList<>();
+        this.customerList = new ArrayList<>();
+        this.saleList = new ArrayList<>();
+
+        if (carList != null) {
+            setCarList(carList);
+        }
+        if(brokerList != null) {
+            setBrokerList(brokerList);
+        }
+        if(customerList != null) {
+            setCustomerList(customerList);
+        }
+        if(saleList != null) {
+            setSaleList(saleList);
+        }
     }
 
     // [[[         ]]]
@@ -43,19 +59,31 @@ public class Dealership {
     // [[[         ]]]
 
     public void setCarList(ArrayList<Car> carList) {
-        // stub
+        (this.carList).clear();
+        for (Car newCar: carList) {
+            addCar(newCar);
+        }
     }
 
     public void setBrokerList(ArrayList<Broker> brokerList) {
-        // stub
+        (this.brokerList).clear();
+        for (Broker newBroker: brokerList) {
+            addBroker(newBroker);
+        }    
     }
 
     public void setCustomerList(ArrayList<Customer> customerList) {
-        // stub
+        (this.customerList).clear();
+        for (Customer newCustomer: customerList) {
+            addCustomer(newCustomer);
+        }    
     }
 
     public void setSaleList(ArrayList<Sale> saleList) {
-        // stub
+        (this.saleList).clear();
+        for (Sale newSale: saleList) {
+            addSale(newSale);
+        }    
     }
 
     /*
@@ -64,7 +92,17 @@ public class Dealership {
      * EFFECTS: check the car if its already in the car list; if not, add it into the car list.
      */
     public void addCar(Car newCar) {
-        // stub
+        boolean found = false;
+        for (Car currenCar : carList) {
+            if (currenCar.getCarID() == newCar.getCarID()) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            carList.add(newCar);
+        }
     }
 
     /*
@@ -73,7 +111,17 @@ public class Dealership {
      * EFFECTS: check the broker if its already in the broker list; if not, add it into the broker list.
      */
     public void addBroker(Broker newBroker) {
-        // stub
+        boolean found = false;
+        for (Broker currenBroker : brokerList) {
+            if (currenBroker.getBrokerID() == newBroker.getBrokerID()) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            brokerList.add(newBroker);
+        }
     }
 
     /*
@@ -83,7 +131,17 @@ public class Dealership {
      *          return true when successed added, return false otherwise.
      */
     public void addCustomer(Customer newCustomer) {
-        // stub
+        boolean found = false;
+        for (Customer currenCustomer : customerList) {
+            if (currenCustomer.getCustomerID() == newCustomer.getCustomerID()) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            customerList.add(newCustomer);
+        }
     }
 
     /*
@@ -93,11 +151,29 @@ public class Dealership {
      *          mark the car as sold.
      */
     public void addSale(Sale newSale) {
-        // stub
+        boolean found = false;
+        for (Sale currenSale : saleList) {
+            if (currenSale.getCarID() == newSale.getCarID()) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            saleList.add(newSale);
+            // Mark as sold
+            Car soldCar = getCarByCarID(newSale.getCarID());
+            soldCar.updateStatus(5);
+        }
     }
 
     public Car getCarByCarID(int carID) {
-        return null; // stub
+        for (Car currentCar : carList) {
+            if (currentCar.getCarID() == carID) {
+                return currentCar;
+            }
+        }
+        return null;
     }
 
     // [[[                ]]]
@@ -109,7 +185,13 @@ public class Dealership {
      * EFFECTS: create a new car list filtered by selected model; can be a empty list.
      */
     public ArrayList<Car> filterCarByModel(String model) {
-        return null; // stub
+        ArrayList<Car> carByModel = new ArrayList<>();
+        for (Car currCar : carList) {
+            if (currCar.getModel().equals(model)) {
+                carByModel.add(currCar);
+            }
+        }
+        return carByModel;
     }
 
     /*
@@ -117,7 +199,13 @@ public class Dealership {
      * EFFECTS: create a new car list filtered by selected color; can be a empty list.
      */    
     public ArrayList<Car> filterCarByColor(String color) {
-        return null; // stub
+        ArrayList<Car> carByColor = new ArrayList<>();
+        for (Car currCar : carList) {
+            if (currCar.getColor().equals(color)) {
+                carByColor.add(currCar);
+            }
+        }
+        return carByColor;
     }
 
     /*
@@ -125,7 +213,13 @@ public class Dealership {
      * EFFECTS: create a new car list filtered by selected status; can be a empty list.
      */
     public ArrayList<Car> filterCarByStatus(int status) {
-        return null; // stub
+        ArrayList<Car> carByStatus = new ArrayList<>();
+        for (Car currCar : carList) {
+            if (currCar.getStatus() == status) {
+                carByStatus.add(currCar);
+            }
+        }
+        return carByStatus;
     }
 
     /*
@@ -133,7 +227,15 @@ public class Dealership {
      *          can accepte any integers buy recommend meanningful values.
      */
     public ArrayList<Car> filterCarByYear(int start, int end) {
-        return null; // stub
+        ArrayList<Car> carByYear = new ArrayList<>();
+        if (start <= end) {
+            for (Car currCar : carList) {
+                if (currCar.getYear() >= start && currCar.getYear() <= end) {
+                    carByYear.add(currCar);
+                }
+            }
+        }
+        return carByYear;
     }
 
     /*
@@ -142,6 +244,14 @@ public class Dealership {
      *          can accepte any integers buy recommend meanningful values.
      */
     public ArrayList<Car> filterCarByPrice(double low, double high) {
-        return null; // stub
+        ArrayList<Car> carByPrice = new ArrayList<>();
+        if (low <= high) {
+            for (Car currCar : carList) {
+                if (currCar.getPrice() >= low && currCar.getPrice() <= high) {
+                    carByPrice.add(currCar);
+                }
+            }
+        }
+        return carByPrice;
     }
 }
