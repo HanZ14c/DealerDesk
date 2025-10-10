@@ -13,6 +13,10 @@ public class Sale {
      */
     public Sale(int carID, int brokerID, int customerID, double salePrice) {
         // stub
+        this.carID = carID;
+        this.brokerID = brokerID;
+        this.customerID = customerID;
+        this.salePrice = salePrice;
     }
 
     // [[[         ]]]
