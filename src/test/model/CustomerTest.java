@@ -10,13 +10,13 @@ class CustomerTest {
 
     @BeforeEach
     void runBefore() {
-        testCustomer = new Customer("Customer_A",1001001000);
+        testCustomer = new Customer("Customer_A","1001001000");
     }
 
     @Test
     void testConstructor() {
         assertEquals("Customer_A", testCustomer.getName());
-        assertEquals(1001001000, testCustomer.getPhoneNumber());
+        assertEquals("1001001000", testCustomer.getPhoneNumber());
         assertTrue(testCustomer.getCustomerID() >= 1);
     }
 }
