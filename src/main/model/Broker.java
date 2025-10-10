@@ -14,7 +14,15 @@ public class Broker {
      *          broker name is set to name; broker customer list can be empty.
      */
     public Broker(String name, ArrayList<Customer> customers) {
-        // stub
+        this.brokerID = nextBrokerID++;
+        this.name = name;
+        this.customers = new ArrayList<>();
+
+        if (customers != null) {
+            for (Customer customer : customers) {
+                assignCustomer(customer);
+            }            
+        }
     }
 
     // [[[         ]]]
@@ -37,7 +45,7 @@ public class Broker {
      * EFFECRS: return the number of customers in brokers list
      */
     public int getNumOfCustomers() {
-        return -1; // stub
+        return customers.size();
     }
 
     /*
@@ -46,6 +54,19 @@ public class Broker {
      * EFFECTS: assign a new customer to the broker, ignore the customer who already exist in customers list;
      */
     public void assignCustomer(Customer customer) {
-        // stub
+        if (customers.size() == 0) {
+            customers.add(customer);
+        }
+
+        boolean find = false;
+        for (Customer i : customers) {
+            if ((i.getCustomerID() == customer.getCustomerID())) {
+                find = true;
+                break;
+            }
+        }
+        if (!find) {
+            customers.add(customer);
+        }
     }
 }
