@@ -21,7 +21,18 @@ public class Car {
      *          status is set to status; addOns can be null.
      */
     public Car(String model, int year, String color, ArrayList<String> addOns, double price, int status) {
-        // stub
+        this.carID = nextCarID++;
+        this.model = model;
+        this.year = year;
+        this.color = color;
+        this.price = price;
+        this.status = status;
+        promotion = 0;
+        packages = new ArrayList<>();
+
+        if (addOns != null) {
+            setPackages(addOns);
+        }
     }
 
     // [[[         ]]]
@@ -61,25 +72,12 @@ public class Car {
     }
 
     public int getPackageSize() {
-        return -1; // stub
+        return packages.size();
     }
 
-    /*
-     * REQUIRES: 
-     * MODIFIES: this
-     * EFFECTS: clean current packages settings, and add new selected packages.
-     */
-    public void setPackages(ArrayList<String> addOns) {
-        // stub
-    }
-
-    /*
-     * REQUIRES: addOn must not be null
-     * 
-     */
-    public void addPackage(String addOn) {
-        // stub
-    }
+    // [[[         ]]]
+    // [[[ SETTERS ]]]
+    // [[[         ]]]
 
     /*
      * REQUIRES: amount <= car price
@@ -87,7 +85,7 @@ public class Car {
      * EFFECTS: make car price discount at given amount
      */
     public void setPromotion(double amount) {
-        // stub
+        this.promotion = amount;
     }
 
     /*
@@ -102,6 +100,36 @@ public class Car {
      * EFFESTS: mark the car into new status.
      */
     public void updateStatus(int newStatus) {
-        // stub
+        this.status = newStatus;
+    }
+
+
+    /*
+     * REQUIRES: 
+     * MODIFIES: this
+     * EFFECTS: clean current packages settings, and add new selected packages.
+     */
+    public void setPackages(ArrayList<String> addOns) {
+        (this.packages).clear();
+        for (String currentPackage : addOns) {
+            addPackage(currentPackage);
+        }
+    }
+
+    /*
+     * REQUIRES: addOn must not be null
+     * 
+     */
+    public void addPackage(String addOn) {
+        boolean found = false;
+        for (String currentPackage : packages) {
+            if (currentPackage.equals(addOn)) {
+                found = true;
+            }
+        }
+
+        if (!found) {
+            packages.add(addOn);
+        }
     }
 }
