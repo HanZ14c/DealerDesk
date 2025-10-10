@@ -17,7 +17,9 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    // Getters
+    // [[[         ]]]
+    // [[[ GETTERS ]]]
+    // [[[         ]]]
 
     public int getCustomerID() {
         return customerID;
