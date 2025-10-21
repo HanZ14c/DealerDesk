@@ -3,23 +3,26 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+@ExcludeFromJacocoGeneratedReport 
 class BrokerTest {
     private Broker testBroker;
     private Customer customerA;
     private Customer customerB;
-    private ArrayList<Customer> customers;
+    private ArrayList<Integer> customers;
 
     @BeforeEach
     void runBefore() {
         customerA = new Customer("Customer_A","1001001000");
         customerB = new Customer("Customer_B","2001001000");
         customers = new ArrayList<>();
-        customers.add(customerA);
-        customers.add(customerB);
+        customers.add(customerA.getCustomerID());
+        customers.add(customerB.getCustomerID());
         // Null customer
         testBroker = new Broker("Broker_A", customers);
     }
@@ -44,9 +47,9 @@ class BrokerTest {
     @Test
     void testAssignCustomer() {
         Customer customerC = new Customer("Customer_C", "3001001000");
-        testBroker.assignCustomer(customerC);
+        testBroker.assignCustomer(customerC.getCustomerID());
         // Duplicate
-        testBroker.assignCustomer(customerC);
+        testBroker.assignCustomer(customerC.getCustomerID());
         assertEquals(3, testBroker.getNumOfCustomers());
     }
 }

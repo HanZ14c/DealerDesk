@@ -2,25 +2,26 @@ package model;
 
 import java.util.ArrayList;
 
+// Represents a broker having ID, name, and its customers.
 public class Broker {
     private static int nextBrokerID = 1;
     private int brokerID;
     private String name;
-    private ArrayList<Customer> customers;
+    private ArrayList<Integer> customerIDs;
 
     /*
      * REQUIRES: broker name, phoneNumber have non-zero length
      * EFFECTS: broker id is a positive integer not assigned to any other broker;
      *          broker name is set to name; broker customer list can be empty.
      */
-    public Broker(String name, ArrayList<Customer> customers) {
+    public Broker(String name, ArrayList<Integer> customerIDs) {
         this.brokerID = nextBrokerID++;
         this.name = name;
-        this.customers = new ArrayList<>();
+        this.customerIDs = new ArrayList<>();
 
-        if (customers != null) {
-            for (Customer customer : customers) {
-                assignCustomer(customer);
+        if (customerIDs != null) {
+            for (int customerID : customerIDs) {
+                assignCustomer(customerID);
             }            
         }
     }
@@ -37,36 +38,36 @@ public class Broker {
         return name;
     }
 
-    public ArrayList<Customer> getCustomers() {
-        return customers;
+    public ArrayList<Integer> getCustomers() {
+        return customerIDs;
     }
 
     /*
-     * EFFECRS: return the number of customers in brokers list
+     * EFFECRS: return the number of customers in brokers list.
      */
     public int getNumOfCustomers() {
-        return customers.size();
+        return customerIDs.size();
     }
 
     /*
-     * REQUIRES: customer must not be null
+     * REQUIRES: customer must not be null.
      * MODIFIES: this
-     * EFFECTS: assign a new customer to the broker, ignore the customer who already exist in customers list;
+     * EFFECTS: assign a new customer to the broker, ignore the customer who already exist in customers list.
      */
-    public void assignCustomer(Customer customer) {
-        if (customers.size() == 0) {
-            customers.add(customer);
+    public void assignCustomer(int customerID) {
+        if (customerIDs.size() == 0) {
+            customerIDs.add(customerID);
         }
 
         boolean find = false;
-        for (Customer i : customers) {
-            if ((i.getCustomerID() == customer.getCustomerID())) {
+        for (int i : customerIDs) {
+            if ((i == customerID)) {
                 find = true;
                 break;
             }
         }
         if (!find) {
-            customers.add(customer);
+            customerIDs.add(customerID);
         }
     }
 }
