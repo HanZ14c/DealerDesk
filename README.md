@@ -16,14 +16,8 @@ I choose this project because it connects programming with a real business cases
 ## User Stories
 
 - As a user, I want to be able to add a car to the inventory with its model, color, and package
-- As a user, I want to be able to view and filter the inventory by status (upcoming, in stock, sold, promotion)
+- As a user, I want to be able to view and filter the inventory by some options (price, year, color, status, etc.)
 - As a user, I want to be able to update a car’s status
-- As a user, I want to be able to record a sale by marking a car as sold and linking it to a buyer
-- As a user, I want to be able to manage customer profiles (name, contact, preferences)
-
-## Roadmap
-
-- Interface
-- Abstract class
-- Exception handling
-- More user stories...
+- As a user, I want to be able to record a sale by marking a car as sold and linking it to a buyer and broker
+- As a user, when I select the quit option from the application menu, I want to be reminded to save car list to file and have the option to do so or not.
+- As a user, when I start the application, I want to be given the option to load car list from file.
