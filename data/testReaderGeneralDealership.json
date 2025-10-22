@@ -1,0 +1,51 @@
+{
+    "carList": [
+        {
+            "carID": 1,
+            "model": "BMW M4",
+            "year": 2025,
+            "color": "Blue",
+            "packages": ["Tech Package", "Sport Package"],
+            "price": 120000,
+            "promotion": 5000,
+            "status": 5
+        },
+        {
+            "carID": 2,
+            "model": "BMW 340i",
+            "year": 2026,
+            "color": "White",
+            "packages": [],
+            "price": 80000,
+            "promotion": 0,
+            "status": 2
+        }
+    ],
+    "brokerList": [
+        {
+            "brokerID": 1,
+            "name": "Alijah",
+            "customers": [1, 2]
+        }
+    ],
+    "customerList": [
+        {
+            "customerID": 1,
+            "name": "Alex",
+            "phoneNumber": "100-100-0001"
+        },
+        {
+            "customerID": 2,
+            "name": "Bruno",
+            "phoneNumber": "100-100-0002"
+        }
+    ],
+    "saleList": [
+        {
+            "carID": 1,
+            "brokerID": 1,
+            "customerID": 1,
+            "salePrice": 115000
+        }
+    ]
+}
