@@ -3,10 +3,13 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+@ExcludeFromJacocoGeneratedReport 
 public class CarTest {
     private Car testCar;
     private ArrayList<String> addOns;
@@ -61,8 +64,6 @@ public class CarTest {
         testCar.setPackages(addOns);
         assertEquals(0, testCar.getPackageSize());
     }
-
-
 
     @Test
     void testAddPackages() {

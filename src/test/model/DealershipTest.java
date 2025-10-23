@@ -3,10 +3,13 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+@ExcludeFromJacocoGeneratedReport 
 public class DealershipTest {
     private Dealership testDealership;
     private ArrayList<Car> testCarList;
