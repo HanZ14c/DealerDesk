@@ -1,5 +1,6 @@
 package model;
 
+// Represents a sale record.
 public class Sale {
     private int carID;
     private int brokerID;

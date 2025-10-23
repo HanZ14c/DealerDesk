@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+// Represents a car having ID, model, year, etc.
 public class Car {
     private static int nextCarID = 1;
     private int carID;
@@ -31,6 +32,24 @@ public class Car {
         packages = new ArrayList<>();
 
         if (addOns != null) {
+            setPackages(addOns);
+        }
+    }
+
+    /*
+     * EFFECTS: test purpose
+     */
+    public Car(int carID, String model, int year, String color, ArrayList<String> addOns, double price, int status) {
+        this.carID = carID;
+        this.model = model;
+        this.year = year;
+        this.color = color;
+        this.price = price;
+        this.status = status;
+        promotion = 0;
+        packages = new ArrayList<>();
+
+        if (addOns.size() > 0) {
             setPackages(addOns);
         }
     }
@@ -105,7 +124,7 @@ public class Car {
 
 
     /*
-     * REQUIRES: 
+     * REQUIRES: addOns can be empty
      * MODIFIES: this
      * EFFECTS: clean current packages settings, and add new selected packages.
      */
@@ -118,7 +137,8 @@ public class Car {
 
     /*
      * REQUIRES: addOn must not be null
-     * 
+     * MODIFIES: this
+     * EFFECTS: add the add-on into the car packages if its not exist
      */
     public void addPackage(String addOn) {
         boolean found = false;

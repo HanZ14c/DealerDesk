@@ -1,5 +1,6 @@
 package model;
 
+// Represents a custoemr having ID, name, and phone number.
 public class Customer {
     private static int nextCustomerID = 1;
     private int customerID;
@@ -13,6 +14,15 @@ public class Customer {
      */
     public Customer(String name, String phoneNumber) {
         this.customerID = nextCustomerID++;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    /*
+     * EFFECTS: test purpose
+     */
+    public Customer(int customerID, String name, String phoneNumber) {
+        this.customerID = customerID;
         this.name = name;
         this.phoneNumber = phoneNumber;
     }

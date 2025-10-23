@@ -26,6 +26,21 @@ public class Broker {
         }
     }
 
+    /*
+     * EFFECTS: test purpose only
+     */
+    public Broker(int brokerID, String name, ArrayList<Integer> customerIDs) {
+        this.brokerID = brokerID;
+        this.name = name;
+        this.customerIDs = new ArrayList<>();
+
+        if (customerIDs.size() > 0) {
+            for (int customerID : customerIDs) {
+                assignCustomer(customerID);
+            }
+        }
+    }
+
     // [[[         ]]]
     // [[[ GETTERS ]]]
     // [[[         ]]]
