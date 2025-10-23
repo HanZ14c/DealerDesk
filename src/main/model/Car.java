@@ -52,6 +52,11 @@ public class Car {
         if (addOns.size() > 0) {
             setPackages(addOns);
         }
+
+        // Ensure ID do not collide after loading from JSON
+        if (carID >= nextCarID) {
+            nextCarID = carID + 1;
+        }
     }
 
     // [[[         ]]]

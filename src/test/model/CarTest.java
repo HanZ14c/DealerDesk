@@ -88,4 +88,11 @@ public class CarTest {
         testCar.updateStatus(0);
         assertEquals(0, testCar.getStatus());
     }
+
+    @Test
+    void testJsonIDConfliction() {
+        Car currCar = new Car(testCar.getCarID() + 1000, "1", 1, "1", new ArrayList<>(), 1, 0);
+        Car newCar = new Car("2", 2, "2", new ArrayList<>(), 2, 0);
+        assertEquals(currCar.getCarID() + 1, newCar.getCarID());
+    }
 }
