@@ -42,12 +42,19 @@
             "status": 2
         }
     ],
-    "brokerList": [{
-        "brokerID": 37,
-        "name": "Alijah",
-        "customers": [
-            1,
-            2
-        ]
-    }]
+    "brokerList": [
+        {
+            "brokerID": 37,
+            "name": "Alijah",
+            "customers": [
+                1,
+                2
+            ]
+        },
+        {
+            "brokerID": 38,
+            "name": "Bozena",
+            "customers": []
+        }
+    ]
 }

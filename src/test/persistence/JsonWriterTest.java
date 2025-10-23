@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 
+// Source: JsonSerializationDemo
 @ExcludeFromJacocoGeneratedReport
 public class JsonWriterTest extends JsonTest {
     
@@ -50,6 +51,35 @@ public class JsonWriterTest extends JsonTest {
     void testWriterGeneralDealership() {
         try {
             Dealership generalDS = new Dealership(null, null, null, null);
+            // add carList
+            ArrayList<String> packages1 = new ArrayList<>();
+            packages1.add("Tech Package");
+            packages1.add("Sport Package");
+            Car car1 = new Car("BMW M4", 2025, "Blue", packages1, 120000, 5);
+            car1.setPromotion(5000);
+            Car car2 = new Car("BMW 340i", 2026, "White", null, 80000, 2);
+            generalDS.addCar(car1);
+            generalDS.addCar(car2);
+
+            // add brokerList
+            ArrayList<Integer> broker1Customers = new ArrayList<>();
+            broker1Customers.add(1);
+            broker1Customers.add(2);
+            Broker broker1 = new Broker("Alijah", broker1Customers);
+            generalDS.addBroker(broker1);
+            Broker broker2 = new Broker("Bozena", new ArrayList<>());
+            generalDS.addBroker(broker2);
+
+            // add customerList
+            Customer customer1 = new Customer("Alex", "100-100-0001");
+            Customer customer2 = new Customer("Bruno", "100-100-0002");
+            generalDS.addCustomer(customer1);
+            generalDS.addCustomer(customer2);
+
+            // add saleList
+            Sale sale1 = new Sale(car1.getCarID(), broker1.getBrokerID(), customer1.getCustomerID(), 115000);
+            generalDS.addSale(sale1);
+
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralDealership.json");
             writer.open();
             writer.write(generalDS);
@@ -60,27 +90,21 @@ public class JsonWriterTest extends JsonTest {
 
             ArrayList<Car> carList = generalDS.getCarList();
             assertEquals(2, carList.size());
-            ArrayList<String> packages1 = new ArrayList<>();
-            packages1.add("Tech Package");
-            packages1.add("Sport Package");
-            checkCar(1, "BMW M4", 2025, "Blue", packages1, 120000, 5000, 5, carList.get(0));
-            checkCar(2, "BMW 340i", 20260, "White", null, 800000, 0, 2, carList.get(1));
+            checkCar(car1.getCarID(), "BMW M4", 2025, "Blue", packages1, 120000, 5000, 5, carList.get(0));
+            checkCar(car2.getCarID(), "BMW 340i", 2026, "White", new ArrayList<>(), 80000, 0, 2, carList.get(1));
 
             ArrayList<Broker> brokerList = generalDS.getBrokerList();
-            assertEquals(1, brokerList.size());
-            ArrayList<Integer> customers1 = new ArrayList<>();
-            customers1.add(1);
-            customers1.add(2);
-            checkBroker(1, "Alijah", customers1, brokerList.get(0));
+            assertEquals(2, brokerList.size());
+            checkBroker(broker1.getBrokerID(), "Alijah", broker1Customers, brokerList.get(0));
 
             ArrayList<Customer> customerList = generalDS.getCustomerList();
             assertEquals(2, customerList.size());
-            checkCustomer(1, "Alex", "100-100-0001", customerList.get(0));
-            checkCustomer(2, "Bruno", "100-100-0002", customerList.get(1));
+            checkCustomer(customer1.getCustomerID(), "Alex", "100-100-0001", customerList.get(0));
+            checkCustomer(customer2.getCustomerID(), "Bruno", "100-100-0002", customerList.get(1));
 
             ArrayList<Sale> saleList = generalDS.getSaleList();
             assertEquals(1, saleList.size());
-            checkSale(1, 1, 1, 115000, saleList.get(0));
+            checkSale(car1.getCarID(), broker1.getBrokerID(), customer1.getCustomerID(), 115000, saleList.get(0));
         } catch (Exception e) {
             fail("Exception should not have been thrown");
         }
