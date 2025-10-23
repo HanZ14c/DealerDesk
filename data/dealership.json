@@ -1,0 +1,70 @@
+{
+    "saleList": [{
+        "brokerID": 1,
+        "salePrice": 115000,
+        "customerID": 1,
+        "carID": 1
+    }],
+    "customerList": [
+        {
+            "phoneNumber": "100-100-0001",
+            "customerID": 1,
+            "name": "Alex"
+        },
+        {
+            "phoneNumber": "100-100-0002",
+            "customerID": 2,
+            "name": "Bruno"
+        }
+    ],
+    "carList": [
+        {
+            "color": "Blue",
+            "year": 2025,
+            "price": 120000,
+            "model": "BMW M4",
+            "packages": [
+                "Tech Package",
+                "Sport Package"
+            ],
+            "carID": 1,
+            "promotion": 5000,
+            "status": 5
+        },
+        {
+            "color": "White",
+            "year": 2026,
+            "price": 80000,
+            "model": "BMW 340i",
+            "packages": [],
+            "carID": 2,
+            "promotion": 0,
+            "status": 2
+        },
+        {
+            "color": "White",
+            "year": 2024,
+            "price": 67000,
+            "model": "Lexus IS",
+            "packages": ["Sport Package"],
+            "carID": 3,
+            "promotion": 0,
+            "status": 0
+        }
+    ],
+    "brokerList": [
+        {
+        "brokerID": 1,
+        "name": "Alijah",
+        "customers": [
+            1,
+            2
+        ]
+    },
+    {
+        "brokerID": 2,
+        "name": "Bozena",
+        "customers": []
+    }
+    ]
+}

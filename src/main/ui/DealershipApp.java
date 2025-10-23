@@ -1,16 +1,31 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
+// Presents the Dealship application
+@ExcludeFromJacocoGeneratedReport 
 public class DealershipApp {
-    private Dealership dealership;
+    private static final String JSON_STORE = "./data/dealership.json";
     private Scanner scan;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private Dealership dealership;
 
     // EFFECTS: runs the Dealership application
-    public DealershipApp() {
+    public DealershipApp() throws FileNotFoundException {
+        scan = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        dealership = new Dealership(null, null, null, null);
         runDealership();
     }
 
@@ -19,8 +34,6 @@ public class DealershipApp {
     private void runDealership() {
         boolean running = true;
         String command = null;
-
-        init();
         System.out.println("\n=== CAR DEALERSHIP MANAGER ===");
         while (running) {
             do {
@@ -35,20 +48,7 @@ public class DealershipApp {
                 }
             } while (command == null);
         }
-
         System.out.println("\nGoodbye :-)");
-    }
-
-    // MODIFIES: this
-    // EFFECTS: initializes dealership with few cars
-    private void init() {
-        dealership = new Dealership(null, null, null, null);
-        dealership.addCar(new Car("BMW M4", 2025, "Black", null, 120000, 3));
-        dealership.addCar(new Car("BMW 330i", 2025, "White", null, 70000, 4));
-        dealership.addCar(new Car("Audi A5", 2024, "Blue", null, 65000, 4));
-        dealership.addCar(new Car("Audi A7", 2020, "White", null, 50000, 5));
-
-        scan = new Scanner(System.in);
     }
 
     // EFFECTS: displays menu of options to user
@@ -57,6 +57,8 @@ public class DealershipApp {
         System.out.println("2) View inventory");
         System.out.println("3) Update car status");
         System.out.println("4) Record a sale");
+        System.out.println("l) Load saved dealership");
+        System.out.println("s) Save dealership");
         System.out.println("0) exit");
         System.out.print("Select: ");
     }
@@ -76,6 +78,12 @@ public class DealershipApp {
                 break;
             case "4":
                 recordSale();
+                break;
+            case "l":
+                loadDealership();
+                break;
+            case "s":
+                saveDealership();
                 break;
             default:
                 System.out.println("Selection not valid, please try again.");
@@ -107,9 +115,11 @@ public class DealershipApp {
     private void viewInventory() {
         ArrayList<Car> inventory = dealership.getCarList();
         if (inventory.size() != 0) {
-            System.out.println("\n--- INVENTORY ---\nID | YEAR | MODEL");
+            System.out.println("\n--- INVENTORY ---\nID | YEAR | MODEL, COLOR, PRICE, PROMOTION, STATUS");
             for (Car car : inventory) {
-                System.out.print(car.getCarID() + "  | " + car.getYear() + " | " + car.getModel() + " | ");
+                System.out.print(car.getCarID() + "  | " + car.getYear() + " | " + car.getModel() + ", ");
+                System.out.print(car.getColor() + ", " + car.getPackageSize() + ", " + car.getPrice() + ", ");
+                System.out.println(car.getPromotion() + ", ");
                 int status = car.getStatus();
                 switch (status) {
                     case 0:
@@ -134,6 +144,8 @@ public class DealershipApp {
                 }
             }
             System.out.println();
+        } else {
+            System.out.println("\nNo data founded.\n");
         }
     }
 
@@ -176,7 +188,35 @@ public class DealershipApp {
         scan.nextLine();
 
         dealership.addSale(new Sale(carID, brokerID, customerID, price));
-        ;
         System.out.println("A new sale created!\n");
+    }
+
+    /*
+     * EFFECTS: saves the workroom to file
+     * SOURCE: JsonSerializationDemo
+     */
+    private void saveDealership() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(dealership);
+            jsonWriter.close();
+            System.out.println("\nSaved dealership to " + JSON_STORE + "\n");
+        } catch (FileNotFoundException e) {
+            System.out.println("\nUnable to write to file: " + JSON_STORE + "\n");
+        }
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: loads Dealership from file
+     * SOURCE: JsonSerializationDemo
+     */
+    private void loadDealership() {
+        try {
+            dealership = jsonReader.read();
+            System.out.println("\nLoaded dealership from " + JSON_STORE + "\n");
+        } catch (IOException e) {
+            System.out.println("\nUnable to read from file: " + JSON_STORE + "\n");
+        }
     }
 }
