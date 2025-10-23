@@ -2,14 +2,19 @@ package model;
 
 import java.util.ArrayList;
 
-public class Dealership {
+import org.json.JSONObject;
+import org.json.JSONArray;
+
+import persistence.Writable;
+
+// Represents a dealership having list of cars, brokers, customers, and sale records.
+public class Dealership implements Writable {
     private ArrayList<Car> carList;
     private ArrayList<Broker> brokerList;
     private ArrayList<Customer> customerList;
     private ArrayList<Sale> saleList;
 
     /*
-     * MODIFIES: this
      * EFFECTS: each list can be null; cars is set to carList; brokers is set to brokerList;
      *          customers is set to customerList; sale records is set to saleList.
      */
@@ -167,13 +172,96 @@ public class Dealership {
         }
     }
 
-    public Car getCarByCarID(int carID) {
-        for (Car currentCar : carList) {
-            if (currentCar.getCarID() == carID) {
-                return currentCar;
+    // [[[              ]]]
+    // [[[ JSON METHODS ]]]
+    // [[[              ]]]
+
+    /*
+     * EFFECTS: convert Dealership data into json
+     * SOURCE: JsonSerializationDemo
+     */
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("carList", carsToJson());
+        json.put("brokerList", brokersToJson());
+        json.put("customerList", customersToJson());
+        json.put("saleList", salesToJson());
+        return json;
+    }
+
+    /*
+     * EFFECTS: returns carList as JSON array.
+     */
+    private JSONArray carsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Car c : carList) {
+            JSONObject jsonCars = new JSONObject();
+            jsonCars.put("carID", c.getCarID());
+            jsonCars.put("model", c.getModel());
+            jsonCars.put("year", c.getYear());
+            jsonCars.put("color", c.getColor());
+            JSONArray packages = new JSONArray();
+            for (String p : c.getPackages()) {
+                packages.put(p);
             }
+            jsonCars.put("packages", packages);
+            jsonCars.put("price", c.getPrice());
+            jsonCars.put("promotion", c.getPromotion());
+            jsonCars.put("status", c.getStatus());
+            jsonArray.put(jsonCars);
         }
-        return null;
+        return jsonArray;
+    }
+
+    /*
+     * EFFECTS: returns brokerList as JSON array.
+     */
+    private JSONArray brokersToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Broker b : brokerList) {
+            JSONObject jsonBrokers = new JSONObject();
+            jsonBrokers.put("brokerID", b.getBrokerID());
+            jsonBrokers.put("name", b.getName());
+            JSONArray customers = new JSONArray();
+            for (Integer id : b.getCustomers()) {
+                customers.put(id);
+            }
+            jsonBrokers.put("customers", customers);
+            jsonArray.put(jsonBrokers);
+        }
+        return jsonArray;
+    }
+
+    /*
+     * EFFECTS: returns customerList as JSON array.
+     */
+    private JSONArray customersToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Customer c : customerList) {
+            JSONObject jsonCustomers = new JSONObject();
+            jsonCustomers.put("customerID", c.getCustomerID());
+            jsonCustomers.put("name", c.getName());
+            jsonCustomers.put("phoneNumber", c.getPhoneNumber());
+            jsonArray.put(jsonCustomers);
+        }
+        return jsonArray;
+    }
+
+    /*
+     * EFFECTS: returns saleList as JSON array.
+     */
+    private JSONArray salesToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Sale s : saleList) {
+            JSONObject jsonSales = new JSONObject();
+            jsonSales.put("carID", s.getCarID());
+            jsonSales.put("brokerID", s.getBrokerID());
+            jsonSales.put("customerID", s.getCustomerID());
+            jsonSales.put("salePrice", s.getSalePrice());
+            jsonArray.put(jsonSales);
+        }
+        return jsonArray;
     }
 
     // [[[                ]]]
@@ -253,5 +341,17 @@ public class Dealership {
             }
         }
         return carByPrice;
+    }
+
+    /*
+     * EFFECTS: return Car with specific carID
+     */
+    public Car getCarByCarID(int carID) {
+        for (Car currentCar : carList) {
+            if (currentCar.getCarID() == carID) {
+                return currentCar;
+            }
+        }
+        return null;
     }
 }
