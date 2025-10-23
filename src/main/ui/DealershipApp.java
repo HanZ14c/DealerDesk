@@ -19,6 +19,7 @@ public class DealershipApp {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private Dealership dealership;
+    private boolean saved;
 
     // EFFECTS: runs the Dealership application
     public DealershipApp() throws FileNotFoundException {
@@ -26,6 +27,7 @@ public class DealershipApp {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         dealership = new Dealership(null, null, null, null);
+        saved = false;
         runDealership();
     }
 
@@ -42,13 +44,17 @@ public class DealershipApp {
                 command = command.toLowerCase();
 
                 if (command.equals("0")) {
+                    // ask to save
+                    if (!saved) {
+                        askToSave();
+                    }
                     running = false;
                 } else {
                     processCommand(command);
                 }
             } while (command == null);
         }
-        System.out.println("\nGoodbye :-)");
+        System.out.println("\n--- Goodbye :-) ---");
     }
 
     // EFFECTS: displays menu of options to user
@@ -61,6 +67,18 @@ public class DealershipApp {
         System.out.println("s) Save dealership");
         System.out.println("0) exit");
         System.out.print("Select: ");
+    }
+
+    /*
+     * MODIFIES: saved
+     * EFFECTS: ask to save file
+     */
+    private void askToSave() {
+        System.err.print("\nYou have unsaved content, do you want to save? (y / n): ");
+        String command = scan.next();
+        if (command.equalsIgnoreCase("Y")) {
+            saveDealership();
+        }
     }
 
     // MODIFIES: this
@@ -107,6 +125,7 @@ public class DealershipApp {
 
         Car car = new Car(model, year, color, null, price, 0);
         dealership.addCar(car);
+        saved = false;
         System.out.println("New car added!\n");
     }
 
@@ -118,8 +137,8 @@ public class DealershipApp {
             System.out.println("\n--- INVENTORY ---\nID | YEAR | MODEL, COLOR, PRICE, PROMOTION, STATUS");
             for (Car car : inventory) {
                 System.out.print(car.getCarID() + "  | " + car.getYear() + " | " + car.getModel() + ", ");
-                System.out.print(car.getColor() + ", " + car.getPackageSize() + ", " + car.getPrice() + ", ");
-                System.out.println(car.getPromotion() + ", ");
+                System.out.print(car.getColor() + ", " + car.getPackageSize() + ", $" + car.getPrice() + ", $");
+                System.out.print(car.getPromotion() + ", ");
                 int status = car.getStatus();
                 switch (status) {
                     case 0:
@@ -167,6 +186,7 @@ public class DealershipApp {
         System.out.print("Select: ");
         int status = scan.nextInt();
         car.updateStatus(status);
+        saved = false;
         System.out.println("Car status updated!\n");
     }
 
@@ -188,6 +208,7 @@ public class DealershipApp {
         scan.nextLine();
 
         dealership.addSale(new Sale(carID, brokerID, customerID, price));
+        saved = false;
         System.out.println("A new sale created!\n");
     }
 
@@ -200,6 +221,7 @@ public class DealershipApp {
             jsonWriter.open();
             jsonWriter.write(dealership);
             jsonWriter.close();
+            saved = true;
             System.out.println("\nSaved dealership to " + JSON_STORE + "\n");
         } catch (FileNotFoundException e) {
             System.out.println("\nUnable to write to file: " + JSON_STORE + "\n");

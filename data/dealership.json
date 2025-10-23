@@ -50,21 +50,31 @@
             "carID": 3,
             "promotion": 0,
             "status": 0
+        },
+        {
+            "color": "Grey",
+            "year": 2023,
+            "price": 60000,
+            "model": "Audi A5",
+            "packages": [],
+            "carID": 4,
+            "promotion": 0,
+            "status": 0
         }
     ],
     "brokerList": [
         {
-        "brokerID": 1,
-        "name": "Alijah",
-        "customers": [
-            1,
-            2
-        ]
-    },
-    {
-        "brokerID": 2,
-        "name": "Bozena",
-        "customers": []
-    }
+            "brokerID": 1,
+            "name": "Alijah",
+            "customers": [
+                1,
+                2
+            ]
+        },
+        {
+            "brokerID": 2,
+            "name": "Bozena",
+            "customers": []
+        }
     ]
 }
