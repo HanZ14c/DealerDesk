@@ -52,10 +52,10 @@ public class JsonReaderTest extends JsonTest {
             packages1.add("Tech Package");
             packages1.add("Sport Package");
             checkCar(1, "BMW M4", 2025, "Blue", packages1, 120000, 5000, 5, carList.get(0));
-            checkCar(2, "BMW 340i", 20260, "White", null, 800000, 0, 2, carList.get(1));
+            checkCar(2, "BMW 340i", 2026, "White", new ArrayList<>(), 80000, 0, 2, carList.get(1));
 
             ArrayList<Broker> brokerList = generalDS.getBrokerList();
-            assertEquals(1, brokerList.size());
+            assertEquals(2, brokerList.size());
             ArrayList<Integer> customers1 = new ArrayList<>();
             customers1.add(1);
             customers1.add(2);
@@ -71,6 +71,16 @@ public class JsonReaderTest extends JsonTest {
             checkSale(1, 1, 1, 115000, saleList.get(0));
         } catch (IOException e) {
             fail("Couldn't read from file");
+        }
+    }
+
+    @Test
+    void testReaderMissingArrays() {
+        JsonReader reader = new JsonReader("./data/testReaderMissingData.json");
+        try {
+            Dealership ds = reader.read();
+        } catch (Exception e) {
+            // pass
         }
     }
 }

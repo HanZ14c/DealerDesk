@@ -26,6 +26,11 @@
             "brokerID": 1,
             "name": "Alijah",
             "customers": [1, 2]
+        },
+        {
+            "brokerID": 2,
+            "name": "Bozena",
+            "customers": []
         }
     ],
     "customerList": [
