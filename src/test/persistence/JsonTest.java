@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 
+// Source: JsonSerializationDemo
 @ExcludeFromJacocoGeneratedReport
 public class JsonTest {
     protected void checkCar(int carID, String model, int year, String color, ArrayList<String> packages, 
