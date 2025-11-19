@@ -169,6 +169,9 @@ public class Dealership implements Writable {
             // Mark as sold
             Car soldCar = getCarByCarID(newSale.getCarID());
             soldCar.updateStatus(5);
+
+            Broker b = getBrokerByID(newSale.getBrokerID());
+            b.assignCustomer(newSale.getCustomerID());
         }
     }
 
@@ -346,12 +349,29 @@ public class Dealership implements Writable {
     /*
      * EFFECTS: return Car with specific carID
      */
-    public Car getCarByCarID(int carID) {
-        for (Car currentCar : carList) {
-            if (currentCar.getCarID() == carID) {
-                return currentCar;
+    public Car getCarByCarID(int id) {
+        for (Car car : carList) {
+            if (car.getCarID() == id) {
+                return car;
             }
         }
         return null;
+    }
+
+    public Broker getBrokerByID(int id) {
+        for (Broker broker : brokerList) {
+            if (broker.getBrokerID() == id) {
+                return broker;
+            }
+        }
+        return null;
+    }
+
+    /*
+     * EFFECTS: returns general infos of dealership as String
+     */
+    public String getInfo() {
+        return ("Inventory: " + carList.size() + " | Sale records: " + saleList.size() + " | Brokers: "
+                + brokerList.size() + " | Customers: " + customerList.size());
     }
 }

@@ -13,7 +13,6 @@ public class Sale {
      *          sale price is set to salePrice.
      */
     public Sale(int carID, int brokerID, int customerID, double salePrice) {
-        // stub
         this.carID = carID;
         this.brokerID = brokerID;
         this.customerID = customerID;
@@ -39,5 +38,4 @@ public class Sale {
     public double getSalePrice() {
         return salePrice;
     }
-
 }
