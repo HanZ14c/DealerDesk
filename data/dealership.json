@@ -1,10 +1,36 @@
 {
-    "saleList": [{
-        "brokerID": 1,
-        "salePrice": 115000,
-        "customerID": 1,
-        "carID": 1
-    }],
+    "saleList": [
+        {
+            "brokerID": 1,
+            "salePrice": 115000,
+            "customerID": 1,
+            "carID": 1
+        },
+        {
+            "brokerID": 1,
+            "salePrice": 60000,
+            "customerID": 2,
+            "carID": 4
+        },
+        {
+            "brokerID": 1,
+            "salePrice": 112000,
+            "customerID": 2,
+            "carID": 6
+        },
+        {
+            "brokerID": 3,
+            "salePrice": 53000,
+            "customerID": 3,
+            "carID": 8
+        },
+        {
+            "brokerID": 4,
+            "salePrice": 118000,
+            "customerID": 4,
+            "carID": 10
+        }
+    ],
     "customerList": [
         {
             "phoneNumber": "100-100-0001",
@@ -15,6 +41,21 @@
             "phoneNumber": "100-100-0002",
             "customerID": 2,
             "name": "Bruno"
+        },
+        {
+            "phoneNumber": "100-100-0003",
+            "customerID": 3,
+            "name": "Cara"
+        },
+        {
+            "phoneNumber": "100-100-0004",
+            "customerID": 4,
+            "name": "Diego"
+        },
+        {
+            "phoneNumber": "100-100-0005",
+            "customerID": 5,
+            "name": "Elena"
         }
     ],
     "carList": [
@@ -45,7 +86,7 @@
             "color": "White",
             "year": 2024,
             "price": 67000,
-            "model": "Lexus IS",
+            "model": "Lexus IS350",
             "packages": ["Sport Package"],
             "carID": 3,
             "promotion": 0,
@@ -59,7 +100,127 @@
             "packages": [],
             "carID": 4,
             "promotion": 0,
+            "status": 5
+        },
+        {
+            "color": "White",
+            "year": 2025,
+            "price": 42000,
+            "model": "Toyota GR86",
+            "packages": [],
+            "carID": 5,
+            "promotion": 0,
             "status": 0
+        },
+        {
+            "color": "Black",
+            "year": 2023,
+            "price": 115000,
+            "model": "BMW M3",
+            "packages": [],
+            "carID": 6,
+            "promotion": 0,
+            "status": 4
+        },
+        {
+            "color": "Purple",
+            "year": 2026,
+            "price": 135000,
+            "model": "BMW M2 CS",
+            "packages": [],
+            "carID": 7,
+            "promotion": 0,
+            "status": 3
+        },
+        {
+            "color": "White",
+            "year": 2024,
+            "price": 55000,
+            "model": "Tesla Model 3",
+            "packages": [
+                "Autopilot"
+            ],
+            "carID": 8,
+            "promotion": 2000,
+            "status": 4
+        },
+        {
+            "color": "Black",
+            "year": 2025,
+            "price": 78000,
+            "model": "Mercedes C43",
+            "packages": [
+                "AMG Night Package"
+            ],
+            "carID": 9,
+            "promotion": 0,
+            "status": 3
+        },
+        {
+            "color": "Red",
+            "year": 2023,
+            "price": 120000,
+            "model": "Porsche 911",
+            "packages": [
+                "Sport Chrono"
+            ],
+            "carID": 10,
+            "promotion": 5000,
+            "status": 4
+        },
+        {
+            "color": "Blue",
+            "year": 2024,
+            "price": 45000,
+            "model": "Honda Civic Type R",
+            "packages": [],
+            "carID": 11,
+            "promotion": 0,
+            "status": 2
+        },
+        {
+            "color": "Yellow",
+            "year": 2025,
+            "price": 38000,
+            "model": "Mazda MX-5 Miata",
+            "packages": [
+                "Club Package"
+            ],
+            "carID": 12,
+            "promotion": 0,
+            "status": 1
+        },
+        {
+            "color": "Green",
+            "year": 2023,
+            "price": 55000,
+            "model": "Ford Mustang GT",
+            "packages": [],
+            "carID": 13,
+            "promotion": 0,
+            "status": 4
+        },
+        {
+            "color": "Silver",
+            "year": 2022,
+            "price": 113000,
+            "model": "Nissan GT-R",
+            "packages": [
+                "Track Package"
+            ],
+            "carID": 14,
+            "promotion": 3000,
+            "status": 0
+        },
+        {
+            "color": "Grey",
+            "year": 2026,
+            "price": 92000,
+            "model": "Audi RS5",
+            "packages": [],
+            "carID": 15,
+            "promotion": 0,
+            "status": 3
         }
     ],
     "brokerList": [
@@ -75,6 +236,20 @@
             "brokerID": 2,
             "name": "Bozena",
             "customers": []
+        },
+        {
+            "brokerID": 3,
+            "name": "Cheng",
+            "customers": [
+                3
+            ]
+        },
+        {
+            "brokerID": 4,
+            "name": "Daria",
+            "customers": [
+                4
+            ]
         }
     ]
 }
