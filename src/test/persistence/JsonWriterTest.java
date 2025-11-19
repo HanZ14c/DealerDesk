@@ -95,7 +95,11 @@ public class JsonWriterTest extends JsonTest {
 
             ArrayList<Broker> brokerList = generalDS.getBrokerList();
             assertEquals(2, brokerList.size());
-            checkBroker(broker1.getBrokerID(), "Alijah", broker1Customers, brokerList.get(0));
+            ArrayList<Integer> broker1CustomersAddedBySale = new ArrayList<>(broker1Customers);
+            if (!broker1CustomersAddedBySale.contains(customer1.getCustomerID())) {
+                broker1CustomersAddedBySale.add(customer1.getCustomerID());
+            }
+            checkBroker(broker1.getBrokerID(), "Alijah", broker1CustomersAddedBySale, brokerList.get(0));
 
             ArrayList<Customer> customerList = generalDS.getCustomerList();
             assertEquals(2, customerList.size());

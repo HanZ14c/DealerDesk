@@ -59,6 +59,8 @@ public class DealershipTest {
         assertEquals(2, testDealership.getBrokerList().size());
         assertEquals(2, testDealership.getCustomerList().size());
         assertEquals(1, testDealership.getSaleList().size());
+        String info = "Inventory: 3 | Sale records: 1 | Brokers: 2 | Customers: 2";
+        assertEquals(info, testDealership.getInfo());
         assertEquals(carA, testDealership.getCarList().get(0));
         assertEquals(carB, testDealership.getCarList().get(1));
         assertEquals(carC, testDealership.getCarList().get(2));
@@ -159,6 +161,13 @@ public class DealershipTest {
         assertNull(testDealership.getCarByCarID(0));
         int id = carA.getCarID();
         assertEquals(carA, testDealership.getCarByCarID(id));
+    }
+
+    @Test
+    void testGetBrokerByID() {
+        assertNull(testDealership.getBrokerByID(0));
+        int id = brokerA.getBrokerID();
+        assertEquals(brokerA, testDealership.getBrokerByID(id));
     }
 
     @Test
