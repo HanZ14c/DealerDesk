@@ -1,16 +1,36 @@
 package ui.tabs;
 
-import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+import model.Customer;
+import model.Broker;
+import ui.ButtonNames;
 import ui.DealershipUI;
 
 @ExcludeFromJacocoGeneratedReport 
 public class DirectoryTab extends Tab {
-    // stub
+    private JTable brokerTable;
+    private DefaultTableModel brokerTableModel;
+    private JTable customerTable;
+    private DefaultTableModel customerTableModel;
+    private JPanel tables;
 
     public DirectoryTab(DealershipUI controller) {
         super(controller);
-        // stub
+        setLayout(new BorderLayout());
+        tables = new JPanel(new GridLayout(2,1));
+
+        placeBrokerTable();
+        placeCustomerTable();
+        add(tables, BorderLayout.CENTER);
+        placeRefreshButton();
     }
 
     // [[[       ]]]
@@ -18,10 +38,35 @@ public class DirectoryTab extends Tab {
     // [[[       ]]]
 
     /*
+     * EFFECTS: inner class, set table read only
+     */
+    @ExcludeFromJacocoGeneratedReport 
+    private static class ReadOnlyTableModel extends DefaultTableModel {
+        ReadOnlyTableModel(Object[] columnNames) {
+            super(columnNames, 0);
+        }
+        
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    }
+
+    /*
      * EFFECTS: creates a table for Dealership broker list
      */
     private void placeBrokerTable() {
-        // stub
+        String[] columns = new String[] {"Broker ID", "Name", "Assigned customers"};
+        brokerTableModel = new ReadOnlyTableModel(columns);
+
+        brokerTable = new JTable(brokerTableModel);
+        brokerTable.setSize(WIDTH, HEIGHT / 3);
+        brokerTable.setFillsViewportHeight(true);
+
+        refreshBrokerTableData();
+
+        JScrollPane scrollPane = new JScrollPane(brokerTable);
+        tables.add(scrollPane);
     }
 
     /*
@@ -29,14 +74,49 @@ public class DirectoryTab extends Tab {
      * EFFECTS: refresh broker table
      */
     private void refreshBrokerTableData() {
-        // stub
+        brokerTableModel.setRowCount(0);
+
+        ArrayList<Broker> brokers = getController().getDealership().getBrokerList();
+        for (Broker b : brokers) {
+            Object[] row = new Object[] {
+                b.getBrokerID(),
+                b.getName(),
+                customerListLabel(b.getCustomers())
+            };
+            brokerTableModel.addRow(row);
+        }
+    }
+
+    /*
+     * EFFECTS: helper for print customers label as a list
+     */
+    private String customerListLabel(List<Integer> customers) {
+        String customersString = "";
+        for (int i = 0; i < customers.size(); i++) {
+            if ((i + 1) != customers.size()) {
+                customersString = customersString + customers.get(i) + ", ";
+            } else {
+                customersString = customersString + customers.get(i);
+            }
+        }
+        return customersString;
     }
 
     /*
      * EFFECTS: creates a table for Dealership customer list
      */
     private void placeCustomerTable() {
-        // stub
+        String[] columns = new String[] {"Customer ID", "Name", "Phone number"};
+        customerTableModel = new ReadOnlyTableModel(columns);
+
+        customerTable = new JTable(customerTableModel);
+        customerTable.setSize(WIDTH, HEIGHT / 3);
+        customerTable.setFillsViewportHeight(true);
+
+        refreshCustomerTableData();
+
+        JScrollPane scrollPane = new JScrollPane(customerTable);
+        tables.add(scrollPane);
     }
 
     /*
@@ -44,7 +124,17 @@ public class DirectoryTab extends Tab {
      * EFFECTS: refresh cutomer table
      */
     private void refreshCustomerTableData() {
-        // stub
+        customerTableModel.setRowCount(0);
+
+        ArrayList<Customer> customers = getController().getDealership().getCustomerList();
+        for (Customer c : customers) {
+            Object[] row = new Object[] {
+                c.getCustomerID(),
+                c.getName(),
+                c.getPhoneNumber()
+            };
+            customerTableModel.addRow(row);
+        }
     }
 
     // [[[         ]]]
@@ -55,13 +145,18 @@ public class DirectoryTab extends Tab {
      * EFFECTS: places a refresh button
      */
     private void placeRefreshButton() {
-        // stub
+        JButton refreshButton = new JButton(ButtonNames.REFRESH.getValue());
+        refreshButton.addActionListener(e -> refreshTableData());
+        JPanel refreshRow = formatButtonRow(refreshButton);
+        refreshRow.setSize(WIDTH, HEIGHT / 6);
+        add(refreshRow, BorderLayout.SOUTH);
     }
 
     /*
      * EFFECTS: helper for placeRefreshButton()
      */
     private void refreshTableData() {
-        // stub
+        refreshBrokerTableData();
+        refreshCustomerTableData();
     }
 }
