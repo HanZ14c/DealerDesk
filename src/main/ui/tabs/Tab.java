@@ -4,6 +4,8 @@ import javax.swing.*;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 
+import java.awt.*;
+
 import ui.DealershipUI;
 
 /*
@@ -11,20 +13,23 @@ import ui.DealershipUI;
  */
 @ExcludeFromJacocoGeneratedReport 
 public class Tab extends JPanel {
-    // stub
+    private final DealershipUI contoller;
 
     // EFFECT: DealershipUI controller that holds this tab
     public Tab(DealershipUI controller) {
-        // stub
+        this.contoller = controller;
     }
 
     // EFFECTS: creates and return row with button included
     public JPanel formatButtonRow(JButton b) {
-        return null;
+        JPanel p = new JPanel();
+        p.setLayout(new FlowLayout());
+        p.add(b);
+        return p;
     }
 
     // EFFECTS: returns the DealershipUI controller for this tab
     public DealershipUI getController() {
-        return null;
+        return contoller;
     }
 }
