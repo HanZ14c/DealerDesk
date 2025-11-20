@@ -16,8 +16,17 @@ I choose this project because it connects programming with a real business cases
 ## User Stories
 
 - As a user, I want to be able to add a car to the inventory with its model, color, and package
-- As a user, I want to be able to view and filter the inventory by some options (price, year, color, status, etc.)
-- As a user, I want to be able to update a car’s status
-- As a user, I want to be able to record a sale by marking a car as sold and linking it to a buyer and broker
+- As a user, I want to be able to view the inventory/sale/broker/customer list
+- As a user, I want to be able to update the car status
+- As a user, I want to be able to record a sale by marking a car as sold and link it to a buyer and broker
 - As a user, when I select the quit option from the application menu, I want to be reminded to save car list to file and have the option to do so or not.
 - As a user, when I start the application, I want to be given the option to load car list from file.
+
+## Instructions for End User
+
+- You can view the panel displays the cars that have already been added to the dealership by checking Inventory/Sale/Directory Tab
+- You can create a new car that added into inventory by using "Add new car" in Inventory tab
+- You can create a new sale record that link car, broker and customer by using form in Sale tab
+- You can locate my visual component(image) by adding a new sale record
+- You can save the state of my application by clicking the save button in Home tab
+- You can reload the state of my application by clicking the load button in Home tab
