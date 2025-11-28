@@ -50,3 +50,10 @@ Assigned customer #5 to broker #2
 
 Wed Nov 26 19:38:39 PST 2025  
 New sale record of car #16 added into dealership.
+
+## Phase 4: Task 3
+
+- Use enum (CarStatus) for Car status instead of int to remove magic numbers and related "toString" methods.
+- Implement ID generation with a singleton IdGenerator for each Car/Broker/Customer class. This can prevents collisions, especially when loading data.
+- Extract an abstract class Person as supertype of Broker and Customer classes because they have some similar fields and makes the domain hierachy explicit.
+- Replace Broker's assigned customer IDs with an object association, making management via Dealership for type clarity. This improves type safety and avoid dangling references.
