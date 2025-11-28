@@ -12,6 +12,9 @@ import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import java.awt.*;
 import java.util.ArrayList;
 
+/*
+ * Presents the Sale Tab
+ */
 @ExcludeFromJacocoGeneratedReport 
 public class SaleTab extends Tab {
     private JTable saleTable;

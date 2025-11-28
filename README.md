@@ -24,9 +24,29 @@ I choose this project because it connects programming with a real business cases
 
 ## Instructions for End User
 
+- **To experience all features, please click the "Load" button in the "Home" tab to load saved sample data from file.**
 - You can view the panel displays the cars that have already been added to the dealership by checking Inventory/Sale/Directory Tab
 - You can create a new car that added into inventory by using "Add new car" in Inventory tab
 - You can create a new sale record that link car, broker and customer by using form in Sale tab
 - You can locate my visual component(image) by adding a new sale record
 - You can save the state of my application by clicking the save button in Home tab
 - You can reload the state of my application by clicking the load button in Home tab
+
+## Phase 4: Task 2
+
+*(the events by JSON loading has been omitted)*
+
+Wed Nov 26 19:38:11 PST 2025  
+New car #16 added into dealership.
+
+Wed Nov 26 19:38:17 PST 2025  
+Car #16 status updated to In stock
+
+Wed Nov 26 19:38:39 PST 2025  
+Car #16 status updated to Sold
+
+Wed Nov 26 19:38:39 PST 2025  
+Assigned customer #5 to broker #2
+
+Wed Nov 26 19:38:39 PST 2025  
+New sale record of car #16 added into dealership.

@@ -108,6 +108,8 @@ public class Dealership implements Writable {
         if (!found) {
             carList.add(newCar);
         }
+        EventLog.getInstance().logEvent(new Event("New car #" + newCar.getCarID() 
+                                        + " added into dealership."));
     }
 
     /*
@@ -126,6 +128,8 @@ public class Dealership implements Writable {
 
         if (!found) {
             brokerList.add(newBroker);
+            EventLog.getInstance().logEvent(new Event("New broker #" + newBroker.getBrokerID() 
+                                        + " added into dealership."));
         }
     }
 
@@ -146,6 +150,8 @@ public class Dealership implements Writable {
 
         if (!found) {
             customerList.add(newCustomer);
+            EventLog.getInstance().logEvent(new Event("New customer #" + newCustomer.getCustomerID() 
+                                        + " added into dealership."));
         }
     }
 
@@ -172,6 +178,9 @@ public class Dealership implements Writable {
 
             Broker b = getBrokerByID(newSale.getBrokerID());
             b.assignCustomer(newSale.getCustomerID());
+
+            EventLog.getInstance().logEvent(new Event("New sale record of car #" + newSale.getCarID()
+                                            +  " added into dealership."));
         }
     }
 

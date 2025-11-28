@@ -74,6 +74,10 @@ public class DealershipUI extends JFrame {
     private class CloseHandler extends WindowAdapter {
         @Override public void windowClosing(WindowEvent e) {
             askForSaving();
+            // print events
+            for (Event next : EventLog.getInstance()) {
+                System.out.println(next.toString() + "\n");
+            }
         }
     }
 
@@ -140,7 +144,7 @@ public class DealershipUI extends JFrame {
     public String loadFile() {
         try {
             dealership = jsonReader.read();
-            updateSavingStatus(true);
+            // updateSavingStatus(true);
             return ("Loaded dealership from " + JSON_STORE);
         } catch (IOException e) {
             return ("Unable to read from file: " + JSON_STORE);

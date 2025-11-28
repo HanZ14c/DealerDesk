@@ -8,6 +8,9 @@ import ui.ButtonNames;
 
 import java.awt.*;
 
+/*
+ * Presents the Home Tab
+ */
 @ExcludeFromJacocoGeneratedReport 
 public class HomeTab extends Tab {
     private static final String INIT_GREETING = "Welcome to Dealership Manager";

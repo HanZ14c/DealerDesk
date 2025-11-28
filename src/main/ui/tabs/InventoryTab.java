@@ -12,6 +12,9 @@ import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import java.awt.*;
 import java.util.ArrayList;
 
+/*
+ * Presents the Inventory Tab
+ */
 @ExcludeFromJacocoGeneratedReport 
 public class InventoryTab extends Tab {
     private JTable table;

@@ -72,6 +72,8 @@ public class Broker {
     public void assignCustomer(int customerID) {
         if (customerIDs.size() == 0) {
             customerIDs.add(customerID);
+            EventLog.getInstance().logEvent(new Event("Assigned customer #" + customerID 
+                                            + " to broker #" + brokerID));
         }
 
         boolean find = false;
@@ -81,8 +83,11 @@ public class Broker {
                 break;
             }
         }
+
         if (!find) {
             customerIDs.add(customerID);
+            EventLog.getInstance().logEvent(new Event("Assigned customer #" + customerID 
+                                            + " to broker #" + brokerID));
         }
     }
 }

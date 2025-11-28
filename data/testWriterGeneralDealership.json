@@ -1,19 +1,19 @@
 {
     "saleList": [{
-        "brokerID": 1,
+        "brokerID": 39,
         "salePrice": 115000,
-        "customerID": 1,
-        "carID": 1
+        "customerID": 42,
+        "carID": 1060
     }],
     "customerList": [
         {
             "phoneNumber": "100-100-0001",
-            "customerID": 1,
+            "customerID": 42,
             "name": "Alex"
         },
         {
             "phoneNumber": "100-100-0002",
-            "customerID": 2,
+            "customerID": 43,
             "name": "Bruno"
         }
     ],
@@ -27,7 +27,7 @@
                 "Tech Package",
                 "Sport Package"
             ],
-            "carID": 1,
+            "carID": 1060,
             "promotion": 5000,
             "status": 5
         },
@@ -37,22 +37,23 @@
             "price": 80000,
             "model": "BMW 340i",
             "packages": [],
-            "carID": 2,
+            "carID": 1061,
             "promotion": 0,
             "status": 2
         }
     ],
     "brokerList": [
         {
-            "brokerID": 1,
+            "brokerID": 39,
             "name": "Alijah",
             "customers": [
                 1,
-                2
+                2,
+                42
             ]
         },
         {
-            "brokerID": 2,
+            "brokerID": 40,
             "name": "Bozena",
             "customers": []
         }

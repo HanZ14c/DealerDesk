@@ -11,7 +11,9 @@ import java.util.Scanner;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 
-// Presents the Dealship application
+/*
+ * Presents the Dealship application
+ */
 @ExcludeFromJacocoGeneratedReport 
 public class DealershipApp {
     private static final String JSON_STORE = "./data/dealership.json";

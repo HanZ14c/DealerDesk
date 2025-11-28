@@ -124,7 +124,26 @@ public class Car {
      * EFFESTS: mark the car into new status.
      */
     public void updateStatus(int newStatus) {
-        this.status = newStatus;
+        if (this.status != newStatus) {
+            this.status = newStatus;
+            EventLog.getInstance().logEvent(new Event("Car #" + carID + " status updated to " 
+                                        + statusLabel(newStatus)));
+        }
+    }
+
+    /*
+     * EFFECTS: returns readable status data in String
+     */
+    private String statusLabel(int status) {
+        switch (status) {
+            case 0: return "Car created";
+            case 1: return "Order placed";
+            case 2: return "In factory";
+            case 3: return "Upcoming";
+            case 4: return "In stock";
+            case 5: return "Sold";
+            default: return String.valueOf(status);
+        }
     }
 
 

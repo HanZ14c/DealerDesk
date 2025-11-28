@@ -14,6 +14,9 @@ import model.Broker;
 import ui.ButtonNames;
 import ui.DealershipUI;
 
+/*
+ * Presents the Directory Tab
+ */
 @ExcludeFromJacocoGeneratedReport 
 public class DirectoryTab extends Tab {
     private JTable brokerTable;
