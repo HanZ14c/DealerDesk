@@ -1,84 +1,55 @@
 package ui.tabs;
 
 import javax.swing.*;
-
-import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
-import ui.DealershipUI;
-import ui.ButtonNames;
-
 import java.awt.*;
+import model.Dealership;
+import ui.DealershipUI;
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 
-/*
- * Presents the Home Tab
- */
-@ExcludeFromJacocoGeneratedReport 
+@ExcludeFromJacocoGeneratedReport
 public class HomeTab extends Tab {
-    private static final String INIT_GREETING = "Welcome to Dealership Manager";
-    private JLabel greeting;
-
-    private JLabel reportMessage;
-
-    private JScrollPane reportPane;
-    private JTextArea reportText;
+    private JLabel[] totals;
+    private JLabel status;
 
     public HomeTab(DealershipUI controller) {
         super(controller);
-        
-        setLayout(new GridLayout(3, 1));
-
-        placeGreeting();
-        placeLoadSaveButtons();
-        placeStatusBlock();
-    }
-
-    /*
-     * EFFECTS: creats greeting at top of console
-     */
-    private void placeGreeting() {
-        greeting = new JLabel(INIT_GREETING, JLabel.CENTER);
-        greeting.setSize(WIDTH, HEIGHT / 3);
-        this.add(greeting);
-    }
-
-    /*
-     * EFFECTS: creates Load and Save buttons that change greeting message when clicked
-     */
-    private void placeLoadSaveButtons() {
-        JButton loadButton = new JButton(ButtonNames.LOAD.getValue());
-        JButton saveButton = new JButton(ButtonNames.SAVE.getValue());
-
-        JPanel buttonRow = formatButtonRow(loadButton);
-        buttonRow.add(saveButton);
-        buttonRow.setSize(WIDTH, HEIGHT / 6);
-
-        loadButton.addActionListener(e -> {
-            reportMessage.setText(getController().loadFile());
-            reportText.setText(getController().getDealershipInfo());
-            reportPane.setViewportView(reportText);
+        JButton load = new JButton("Load");
+        JButton save = new JButton("Save");
+        placeHeader("Overview", load, save);
+        JPanel summary = new JPanel(new GridLayout(4, 2, 24, 0));
+        summary.setBorder(BorderFactory.createEmptyBorder(4, 0, 0, 0));
+        String[] labels = {"Vehicles", "Sales", "Customers", "Brokers"};
+        totals = new JLabel[labels.length];
+        for (int i = 0; i < labels.length; i++) {
+            JLabel label = new JLabel(labels[i]);
+            label.setPreferredSize(new Dimension(180, 56));
+            summary.add(label);
+            totals[i] = new JLabel("0", SwingConstants.RIGHT);
+            totals[i].setFont(totals[i].getFont().deriveFont(Font.BOLD, 24f));
+            totals[i].setForeground(new Color(43, 91, 145));
+            summary.add(totals[i]);
+        }
+        JPanel content = new JPanel(new BorderLayout());
+        content.add(summary, BorderLayout.NORTH);
+        add(content, BorderLayout.CENTER);
+        status = new JLabel(" ");
+        status.setForeground(new Color(90, 100, 112));
+        add(status, BorderLayout.SOUTH);
+        load.addActionListener(e -> {
+            status.setText(getController().loadFile());
+            refresh();
         });
-
-        saveButton.addActionListener(e -> {
-            reportMessage.setText(getController().saveFile());
-            reportText.setText("");
-            reportPane.setViewportView(reportText);
-        });
-
-        this.add(buttonRow);
+        save.addActionListener(e -> status.setText(getController().saveFile()));
+        refresh();
     }
 
-    /*
-     * MODIFIES: this
-     * EFFECTS: adds a report test area that prints the dealership informations
-     */
-    private void placeStatusBlock() {
-        JPanel reportBlock = new JPanel(new GridLayout(2, 1));
-        reportMessage = new JLabel("");
-        reportPane = new JScrollPane(new JTextArea(1, 20));
-        reportText = new JTextArea("", 1, 20);
-        reportText.setVisible(true);
-
-        reportBlock.add(reportMessage);
-        reportBlock.add(reportPane);
-        add(reportBlock);
+    @Override
+    public void refresh() {
+        Dealership data = getController().getDealership();
+        int[] counts = {data.getCarList().size(), data.getSaleList().size(),
+                data.getCustomerList().size(), data.getBrokerList().size()};
+        for (int i = 0; i < totals.length; i++) {
+            totals[i].setText(String.valueOf(counts[i]));
+        }
     }
 }

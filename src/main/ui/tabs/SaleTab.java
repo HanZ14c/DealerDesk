@@ -24,14 +24,17 @@ public class SaleTab extends Tab {
     private JTextField brokerIdField;
     private JTextField customerIdField;
     private JTextField priceField;
-    private JLabel congratImageLabel;
+    private JDialog saleDialog;
 
     public SaleTab(DealershipUI controller) {
         super(controller);
-        setLayout(new BorderLayout());
 
         placeTable();
-        placeNewSaleForm();
+        JButton addSale = new JButton("New sale");
+        addSale.addActionListener(e -> placeNewSaleForm());
+        JButton refresh = new JButton("Refresh");
+        refresh.addActionListener(e -> refreshSaleTableData());
+        placeHeader("Sales", refresh, addSale);
     }
 
     // [[[       ]]]
@@ -61,7 +64,10 @@ public class SaleTab extends Tab {
         saleTableModel = new ReadOnlyTableModel(columns);
 
         saleTable = new JTable(saleTableModel);
-        saleTable.setFillsViewportHeight(true);
+        styleTable(saleTable);
+        javax.swing.table.DefaultTableCellRenderer money = new javax.swing.table.DefaultTableCellRenderer();
+        money.setHorizontalAlignment(SwingConstants.RIGHT);
+        saleTable.getColumnModel().getColumn(3).setCellRenderer(money);
 
         refreshSaleTableData();
 
@@ -73,6 +79,11 @@ public class SaleTab extends Tab {
      * MODIFIES: this
      * EFFECTS: refresh sale table
      */
+    @Override
+    public void refresh() {
+        refreshSaleTableData();
+    }
+
     private void refreshSaleTableData() {
         saleTableModel.setRowCount(0);
         ArrayList<Sale> sales = getController().getDealership().getSaleList();
@@ -85,16 +96,13 @@ public class SaleTab extends Tab {
             };
             saleTableModel.addRow(row);
         }
-        if (congratImageLabel != null) {
-            congratImageLabel.setVisible(false);
-        }
     }
 
     /*
      * EFFECTS: helper for refreshSaleTableData()
      */
     private String priceLabel(double p) {
-        return "$" + p;
+        return java.text.NumberFormat.getCurrencyInstance(java.util.Locale.CANADA).format(p);
     }
 
     // [[[      ]]]
@@ -103,10 +111,13 @@ public class SaleTab extends Tab {
 
     /*
      * MODIFIES: this
-     * EFFECTS: places the form for creating a new sale at the bottom
+     * EFFECTS: opens a dialog for creating a new sale
      */
     private void placeNewSaleForm() {
-        JPanel container = new JPanel(new BorderLayout());
+        saleDialog = new JDialog(SwingUtilities.getWindowAncestor(this), "New sale",
+                Dialog.ModalityType.APPLICATION_MODAL);
+        JPanel container = new JPanel(new BorderLayout(0, 16));
+        container.setBorder(BorderFactory.createEmptyBorder(20, 20, 12, 20));
 
         JPanel form = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -124,19 +135,20 @@ public class SaleTab extends Tab {
         addLabelAndTextField(form, gbc, "Sale Price:", priceField, 0, 3);
 
         JButton saveButton = new JButton(ButtonNames.SAVE_SALE.getValue());
-        JButton refreshButton = new JButton(ButtonNames.REFRESH.getValue());
+        JButton cancelButton = new JButton("Cancel");
         JPanel buttonRow = formatButtonRow(saveButton);
-        buttonRow.add(refreshButton);
+        buttonRow.add(cancelButton);
 
-        refreshButton.addActionListener(e -> refreshSaleTableData());
+        cancelButton.addActionListener(e -> saleDialog.dispose());
         saveButton.addActionListener(e -> onSave());
 
         container.add(form, BorderLayout.CENTER);
         container.add(buttonRow, BorderLayout.SOUTH);
 
-        placeImage(container);
-
-        add(container, BorderLayout.SOUTH);
+        saleDialog.setContentPane(container);
+        saleDialog.pack();
+        saleDialog.setLocationRelativeTo(this);
+        saleDialog.setVisible(true);
     }
 
     /*
@@ -163,31 +175,8 @@ public class SaleTab extends Tab {
         Sale newSale = new Sale(carId, brokerId, customerId, price);
         getController().getDealership().addSale(newSale);
         getController().updateSavingStatus(false);
-        congratImageLabel.setVisible(true);
+        refreshSaleTableData();
+        saleDialog.dispose();
     }
 
-    // [[[       ]]]
-    // [[[ IMAGE ]]]
-    // [[[       ]]]
-
-    /*
-     * EFFECTS: places a image with fixed size left to the form
-     */
-    private void placeImage(JPanel container) {
-        congratImageLabel = new JLabel();
-        // Fixed size
-        final int w = 120;
-        final int h = 120;
-        ImageIcon raw = new ImageIcon("images/cheers.png");
-        Image scaled = raw.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
-        congratImageLabel.setIcon(new ImageIcon(scaled));
-        Dimension fixed = new Dimension(w, h);
-        congratImageLabel.setPreferredSize(fixed);
-        congratImageLabel.setMinimumSize(fixed);
-        congratImageLabel.setMaximumSize(fixed);
-        congratImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        congratImageLabel.setVerticalAlignment(SwingConstants.CENTER);
-        congratImageLabel.setVisible(false);
-        container.add(congratImageLabel, BorderLayout.WEST);
-    }
 }
