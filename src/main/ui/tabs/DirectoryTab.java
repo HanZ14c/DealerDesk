@@ -27,8 +27,7 @@ public class DirectoryTab extends Tab {
 
     public DirectoryTab(DealershipUI controller) {
         super(controller);
-        setLayout(new BorderLayout());
-        tables = new JPanel(new GridLayout(2,1));
+        tables = new JPanel(new GridLayout(2, 1, 0, 24));
 
         placeBrokerTable();
         placeCustomerTable();
@@ -64,12 +63,15 @@ public class DirectoryTab extends Tab {
 
         brokerTable = new JTable(brokerTableModel);
         brokerTable.setSize(WIDTH, HEIGHT / 3);
-        brokerTable.setFillsViewportHeight(true);
+        styleTable(brokerTable);
 
         refreshBrokerTableData();
 
         JScrollPane scrollPane = new JScrollPane(brokerTable);
-        tables.add(scrollPane);
+        JPanel section = new JPanel(new BorderLayout(0, 10));
+        section.add(new JLabel("Brokers"), BorderLayout.NORTH);
+        section.add(scrollPane, BorderLayout.CENTER);
+        tables.add(section);
     }
 
     /*
@@ -114,12 +116,15 @@ public class DirectoryTab extends Tab {
 
         customerTable = new JTable(customerTableModel);
         customerTable.setSize(WIDTH, HEIGHT / 3);
-        customerTable.setFillsViewportHeight(true);
+        styleTable(customerTable);
 
         refreshCustomerTableData();
 
         JScrollPane scrollPane = new JScrollPane(customerTable);
-        tables.add(scrollPane);
+        JPanel section = new JPanel(new BorderLayout(0, 10));
+        section.add(new JLabel("Customers"), BorderLayout.NORTH);
+        section.add(scrollPane, BorderLayout.CENTER);
+        tables.add(section);
     }
 
     /*
@@ -150,14 +155,17 @@ public class DirectoryTab extends Tab {
     private void placeRefreshButton() {
         JButton refreshButton = new JButton(ButtonNames.REFRESH.getValue());
         refreshButton.addActionListener(e -> refreshTableData());
-        JPanel refreshRow = formatButtonRow(refreshButton);
-        refreshRow.setSize(WIDTH, HEIGHT / 6);
-        add(refreshRow, BorderLayout.SOUTH);
+        placeHeader("Directory", refreshButton);
     }
 
     /*
      * EFFECTS: helper for placeRefreshButton()
      */
+    @Override
+    public void refresh() {
+        refreshTableData();
+    }
+
     private void refreshTableData() {
         refreshBrokerTableData();
         refreshCustomerTableData();

@@ -28,7 +28,6 @@ public class InventoryTab extends Tab {
     
     public InventoryTab(DealershipUI controller) {
         super(controller);
-        setLayout(new BorderLayout());
 
         placeTable();
         placeButtonCol();
@@ -61,7 +60,10 @@ public class InventoryTab extends Tab {
         tableModel = new ReadOnlyTableModel(columns);
 
         table = new JTable(tableModel);
-        table.setFillsViewportHeight(true);
+        styleTable(table);
+        javax.swing.table.DefaultTableCellRenderer money = new javax.swing.table.DefaultTableCellRenderer();
+        money.setHorizontalAlignment(SwingConstants.RIGHT);
+        table.getColumnModel().getColumn(4).setCellRenderer(money);
 
         refreshTableData();
 
@@ -73,6 +75,11 @@ public class InventoryTab extends Tab {
      * MODIFIES: this
      * EFFECTS: reloads data from dealership carList into the table model
      */
+    @Override
+    public void refresh() {
+        refreshTableData();
+    }
+
     private void refreshTableData() {
         tableModel.setRowCount(0);
 
@@ -94,7 +101,7 @@ public class InventoryTab extends Tab {
      * EFFECTS: returns price data with $
      */
     private String priceLabel(double p) {
-        String price = "$" + p;
+        String price = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.CANADA).format(p);
         return price;
     }
 
@@ -129,17 +136,7 @@ public class InventoryTab extends Tab {
         addNewCarButton.addActionListener(e -> addNewCar());
         editStatusButton.addActionListener(e -> editCarStatus());
 
-        JPanel refreshRow = formatButtonRow(refreshButton);
-        JPanel editRow = formatButtonRow(addNewCarButton);
-        editRow.add(editStatusButton); // place Edit status to the right of Add new car
-        refreshRow.setSize(WIDTH, HEIGHT / 6);
-        editRow.setSize(WIDTH, HEIGHT / 6);
-
-        JPanel buttonCol = new JPanel(new GridLayout(2, 1));
-        buttonCol.add(refreshRow);
-        buttonCol.add(editRow);
-
-        this.add(buttonCol, BorderLayout.SOUTH);
+        placeHeader("Inventory", refreshButton, editStatusButton, addNewCarButton);
     }
 
 
@@ -157,7 +154,8 @@ public class InventoryTab extends Tab {
         JPanel form = buildFormPanel();
         JPanel buttonRow = placeSaveCancelButtons(dialog);
 
-        JPanel container = new JPanel(new BorderLayout());
+        JPanel container = new JPanel(new BorderLayout(0, 16));
+        container.setBorder(BorderFactory.createEmptyBorder(20, 20, 12, 20));
         container.add(form, BorderLayout.CENTER);
         container.add(buttonRow, BorderLayout.SOUTH);
 
@@ -186,10 +184,7 @@ public class InventoryTab extends Tab {
         colorField = new JTextField(12);
         priceField = new JTextField(10);
 
-        String[] statusOptions = new String[] {
-            "Car created", "Order placed", "In factory", "Upcoming", "In stock", "Sold"
-        };
-        statusComboBox = new JComboBox<>(statusOptions);
+        statusComboBox = createStatusComboBox();
         statusComboBox.setSelectedIndex(0);
     }
 
@@ -215,24 +210,16 @@ public class InventoryTab extends Tab {
      * EFFECTS: helper method for buildFormPanel()
      */
     private void addLabelAndTextField(JPanel form, GridBagConstraints gbc, String labelText,
-                                    JTextField testField, int gridX, int gridY) {
+                                    JComponent field, int gridX, int gridY) {
         gbc.gridx = gridX;
         gbc.gridy = gridY;
+        gbc.weightx = 0;
+        gbc.anchor = GridBagConstraints.LINE_START;
         form.add(new JLabel(labelText), gbc);
         gbc.gridx = 1;
-        form.add(testField, gbc);
+        gbc.weightx = 1;
+        form.add(field, gbc);
     }
-
-    // Overload
-    private void addLabelAndTextField(JPanel form, GridBagConstraints gbc, String labelText,
-                                    JComboBox<String> comboBox, int gridX, int gridY) {
-        gbc.gridx = gridX;
-        gbc.gridy = gridY;
-        form.add(new JLabel(labelText), gbc);
-        gbc.gridx = 1;
-        form.add(comboBox, gbc);
-    }
-
 
     /*
      * EFFECTS: builds Save/Cancel buttons and actions
@@ -262,7 +249,7 @@ public class InventoryTab extends Tab {
         Car newCar = new Car(model, year, color, null, price, status);
         getController().getDealership().addCar(newCar);
         getController().updateSavingStatus(false);
-        // refreshTableData();
+        refreshTableData();
         dialog.dispose();
     }
 
@@ -283,7 +270,8 @@ public class InventoryTab extends Tab {
         JPanel form = buildEditStatusForm(carIdField, statusBox);
         JPanel buttons = buildEditStatusButtons(dialog, carIdField, statusBox);
 
-        JPanel container = new JPanel(new BorderLayout());
+        JPanel container = new JPanel(new BorderLayout(0, 16));
+        container.setBorder(BorderFactory.createEmptyBorder(20, 20, 12, 20));
         container.add(form, BorderLayout.CENTER);
         container.add(buttons, BorderLayout.SOUTH);
 
@@ -300,7 +288,18 @@ public class InventoryTab extends Tab {
         String[] statusChoices = new String[] {
             "Car created", "Order placed", "In factory", "Upcoming", "In stock", "Sold"
         };
-        return new JComboBox<>(statusChoices);
+        JComboBox<String> comboBox = new JComboBox<>(statusChoices);
+        // Aqua clips padded renderers; Basic sizes the control from the renderer.
+        comboBox.setUI(new javax.swing.plaf.basic.BasicComboBoxUI());
+        comboBox.setBackground(Color.WHITE);
+        DefaultListCellRenderer renderer = new DefaultListCellRenderer();
+        comboBox.setRenderer((list, value, index, selected, focused) -> {
+            JLabel label = (JLabel) renderer.getListCellRendererComponent(
+                    list, value, index, selected, focused);
+            label.setBorder(BorderFactory.createEmptyBorder(6, 8, 6, 8));
+            return label;
+        });
+        return comboBox;
     }
 
     /*
@@ -341,7 +340,7 @@ public class InventoryTab extends Tab {
         Car car = getController().getDealership().getCarByCarID(carId);
         car.updateStatus(status);
         getController().updateSavingStatus(false);
-        // refreshTableData();
+        refreshTableData();
         dialog.dispose();
     }
 }
