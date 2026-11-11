@@ -38,7 +38,7 @@ public class DealershipApp {
     private void runDealership() {
         boolean running = true;
         String command = null;
-        System.out.println("\n=== CAR DEALERSHIP MANAGER ===");
+        System.out.println("\n=== DealerDesk ===");
         while (running) {
             do {
                 displayMenu();

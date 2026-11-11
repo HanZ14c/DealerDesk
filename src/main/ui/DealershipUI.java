@@ -90,7 +90,7 @@ public class DealershipUI extends JFrame {
      * EFFECTS: creates DealershipUI
      */
     private DealershipUI() {
-        super("Dealership Manager");
+        super("DealerDesk");
         saved = true;
 
         setSize(WIDTH, HEIGHT);

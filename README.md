@@ -1,6 +1,6 @@
-# Car Dealership Manager
+# DealerDesk
 
-Car Dealership Manager is a Java desktop app for dealership staff to manage cars, customers, brokers, and sales records. It includes a Swing GUI, a console entry point, JSON persistence, event logging, and JUnit tests.
+DealerDesk is a Java desktop app for dealership staff to manage cars, customers, brokers, and sales records. It includes a Swing GUI, a console entry point, JSON persistence, event logging, and JUnit tests.
 
 ## Features
 
